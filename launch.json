@@ -1,0 +1,24 @@
+{
+  "kind": "custom_token",
+  "token": {
+    "contract": "LARPToken",
+    "name": "Linked Avatar Registry Protocol",
+    "symbol": "LARP",
+    "decimals": 18,
+    "constructorArgs": [],
+    "totalSupply": "1000000000000000000000000000"
+  },
+  "contracts": [],
+  "pool": {
+    "pairedCurrency": "0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7",
+    "fee": 12500,
+    "tickSpacing": 60,
+    "initialPrice": "79228162514264337593543950336"
+  },
+  "economics": {
+    "poolBps": 8000,
+    "initialMarketCapWei": "2500000000000000000000",
+    "remainderTo": "0x206f5dbf4f135c6183b5a5b99327fa0be34cb4d9"
+  },
+  "notes": "LARPToken (src/LARPToken.sol) is a fixed-supply OpenZeppelin ERC-20 named Linked Avatar Registry Protocol with symbol LARP and 18 decimals. Its constructor takes no arguments and mints the whole supply of 1,000,000,000 LARP (1000000000000000000000000000 minor units) once to msg.sender, which is the launch factory. There is no mint, burn, owner, pause, blacklist, transfer tax, upgrade path or initialization call; every transfer, including the factory's, the distributor's and the pool manager's, moves exactly the requested amount. No application contracts are part of the accepted tree. The factory pays the supply out: the swarm's share to the launch's MerkleDistributor, 80% as single-sided liquidity in the LARP/IMD pool opened from the 2,500 IMD opening market cap in economics, and the remainder to economics.remainderTo. pool.initialPrice is provenance only."
+}
