@@ -29,6 +29,7 @@ contract RejectingRecipient {
     }
 }
 
+/// forge-config: default.fuzz.runs = 1000
 contract LARPTokenTest is Test {
     uint256 private constant SUPPLY = 1_000_000_000_000_000_000_000_000_000;
 
@@ -356,7 +357,7 @@ contract LARPTokenTest is Test {
     }
 
     function testFuzz_DeploymentMintsOnlyToImmediateCaller(address deployer) public {
-        vm.assume(deployer != address(0));
+        deployer = address(uint160(bound(uint160(deployer), 1, type(uint160).max)));
         vm.prank(deployer);
         LARPToken deployed = new LARPToken();
         assertEq(deployed.totalSupply(), SUPPLY);
@@ -365,7 +366,8 @@ contract LARPTokenTest is Test {
     }
 
     function testFuzz_TransferConservesSupply(address recipient, uint256 amount) public {
-        vm.assume(recipient != address(0) && recipient != address(this));
+        recipient = address(uint160(bound(uint160(recipient), 1, type(uint160).max)));
+        if (recipient == address(this)) recipient = alice;
         amount = bound(amount, 0, SUPPLY);
         assertTrue(token.transfer(recipient, amount));
         assertEq(token.balanceOf(recipient), amount);
